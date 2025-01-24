@@ -1321,24 +1321,26 @@ value.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 support to the client by populating a SVCB / HTTPS RR as so:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2"><code>
         svc.example.com 7200 IN SVCB 1 background.svc.example.com ( alpn=h2, sla=0, mandatory=sla)
-        svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
 </code><a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3">In the above example, a client that determines it wants a "real-time" service
+<p id="section-4.2-3"><code>
+        svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
+</code><a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">In the above example, a client that determines it wants a "real-time" service
 level will first filter for RRs with <code>sla</code> values lesser than 2. In this case,
 both RRs satisfy the constraint. The client then sorts it by the <code>sla</code> values.
 The client thus uses <code>interactive.svc.example.com</code> endpoint.  The service
 operator also use the <code>mandatory</code> flag for the background service, so that
 clients who do not support the SvcLvlAttr default to the interactive
-endpoint.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">A service operator can also have the same endpoint offer multiple service levels
-with an additional SVCB record as so:<a href="#section-4.2-4" class="pilcrow">¶</a></p>
-<p id="section-4.2-5"><code>
+endpoint.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">A service operator can also have the same endpoint offer multiple service levels
+with an additional SVCB record as so:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.2-6"><code>
         svc.example.com 7200 IN SVCB 1 realtime.svc.example.com ( alpn=h2, sla=1,2 )
-</code><a href="#section-4.2-5" class="pilcrow">¶</a></p>
-<p id="section-4.2-6">With this additional record, a client that determines it wants a "real-time"
+</code><a href="#section-4.2-6" class="pilcrow">¶</a></p>
+<p id="section-4.2-7">With this additional record, a client that determines it wants a "real-time"
 service level will use this new endpoint. A client that determines it service
 level to be "interactive" (sla=1), can use either the
-<code>interactive.svc.example.com</code> or the <code>realtime.svc.example.com</code> endpoint.<a href="#section-4.2-6" class="pilcrow">¶</a></p>
+<code>interactive.svc.example.com</code> or the <code>realtime.svc.example.com</code> endpoint.<a href="#section-4.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
