@@ -155,7 +155,7 @@ service endpoints, as seen in the following example:
 
 ```
         svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
-        svc.example.com 7200 IN SVCB 2 realtime.svc.example.com ( alpn=h2, sla=0,1,2 )
+        svc.example.com 7200 IN SVCB 2 . ( alpn=h2, sla=0,1,2 )
 ```
 
 With this additional RR, a client that determines it wants a "interactive"
