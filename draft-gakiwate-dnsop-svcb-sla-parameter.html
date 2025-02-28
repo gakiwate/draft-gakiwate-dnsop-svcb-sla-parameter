@@ -8,20 +8,20 @@
 <meta content="Gautam Akiwate" name="author">
 <meta content="Tommy Pauly" name="author">
 <meta content='
-       This document defines a new parameter for use in Service Binding (SVCB) and
+       This document defines a new SvcParamKey for use in Service Binding (SVCB) and
 HTTPS DNS resource records which enables authoritative DNS servers to indicate
 that a service supports specific service levels or use types, such as
-"interactive", "background" or "real-time", at that endpoint.  Specifically, a
+"interactive", "background" or "realtime", at that endpoint.  Specifically, a
 service can use this new parameter to indicate which specific endpoints a client
  MAY  use for the specific service levels indicated. By providing this
 information, clients can make informed decisions about which service endpoints
 to use based on their specific applications needs at that time. 
     ' name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="draft-gakiwate-dnsop-svcb-sla-parameter-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -442,7 +442,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1051,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Service Binding Mapping for Service Leve</td>
-<td class="right">January 2025</td>
+<td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Akiwate &amp; Pauly</td>
-<td class="center">Expires 28 July 2025</td>
+<td class="center">Expires 1 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-gakiwate-dnsop-svcb-sla-parameter-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-24" class="published">24 January 2025</time>
+<time datetime="2025-02-28" class="published">28 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-07-28">28 July 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-01">1 September 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1090,10 +1090,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Service Binding Mapping for Service Levels</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a new parameter for use in Service Binding (SVCB) and
+<p id="section-abstract-1">This document defines a new SvcParamKey for use in Service Binding (SVCB) and
 HTTPS DNS resource records which enables authoritative DNS servers to indicate
 that a service supports specific service levels or use types, such as
-"interactive", "background" or "real-time", at that endpoint.  Specifically, a
+"interactive", "background" or "realtime", at that endpoint.  Specifically, a
 service can use this new parameter to indicate which specific endpoints a client
 <span class="bcp14">MAY</span> use for the specific service levels indicated. By providing this
 information, clients can make informed decisions about which service endpoints
@@ -1134,7 +1134,7 @@ to use based on their specific applications needs at that time.<a href="#section
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1214,19 +1214,19 @@ to use based on their specific applications needs at that time.<a href="#section
       </h2>
 <p id="section-1-1">The SVCB and HTTPS resource records (RRs) provide clients with instructions to
 connect to a service while avoiding transient connections to a suboptimal
-default server<span>[<a href="#SVCB" class="cite xref">SVCB</a>]</span>. However, there are scenarios in which a client
+default server <span>[<a href="#SVCB" class="cite xref">SVCB</a>]</span>. However, there are scenarios in which a client
 might need to interact differently with a service based on their specific needs
-at the time.  Traditionally, the solution to this problem has been to create two
-services --- one for interactive tasks and another for background tasks.
-However, there are scenarios where a client based on its local context, knows
-that it can improve resource utilization by choosing a "background" service
-level for tasks that are typically considered "interactive". The current
-solution of splitting "interactive" and "background" services does not allow
-clients to utilize its local context to improve service adaptability without
-having to delineate tasks as "background", or "interactive" apriori.<a href="#section-1-1" class="pilcrow">¶</a></p>
+at the time.  Traditionally, the solution to this problem has been to create
+separate services --- one for "interactive" tasks and another for "background"
+tasks.  However, there are scenarios where a client based on its local context,
+knows that it can improve resource utilization by choosing a "background"
+service level for tasks that are typically considered "interactive". The current
+solution of splitting services does not allow clients to utilize its local
+context to improve service adaptability without having to delineate tasks as
+"background", or "interactive" apriori.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The document defines a new SvcParamKey "sla", short for Service Level Attribute,
-to provide a standardized way for a client to discover different service
-endpoints offering different service levels using SVCB / HTTPS RRs.<a href="#section-1-2" class="pilcrow">¶</a></p>
+to provide a standardized way for a client to dynamically discover different
+service endpoints offering different service levels using SVCB / HTTPS RRs.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1252,11 +1252,11 @@ requirements. Interactive traffic typically demands low latency and high
 responsiveness, while background traffic prioritizes throughput and efficiency
 over immediacy. Moreover, where in the network enviornment these demands can
 be relaibly and efficiently met also differ.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">The "sla" parameter enables authoritative DNS servers to signal these
+<p id="section-3-2">The "sla" SvcParamKey enables authoritative DNS servers to signal these
 distinctions, thereby allowing clients to route traffic intelligently.  This
 capability is particularly useful in load-balancing scenarios, where providers
 can allocate interactive traffic to low-latency, high-performance servers while
-directing background tasks to cost-effective, high-throughput infrastructure.<a href="#section-3-2" class="pilcrow">¶</a></p>
+directing background tasks to cost-effective, lower-performance infrastructure.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">Allowing clients explicit control over which service level to use benefits a
 range of stakeholders, including service operators, by improving quality of
 service (QoS), optimizing resource utilization, and enhancing end-user
@@ -1271,12 +1271,11 @@ experience.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-4-1">The "sla" SvcParamKey, short for Service Level Attribute, is used to indicate that
 a service described in SVCB RR supports a specific service level use type. A
 endpoint can support multiple service levels. To support multiple service level
-types at different endpoints, multiple SVCB / HTTPS RRs with the same
-SvcPriority <span class="bcp14">SHOULD</span> be used.<a href="#section-4-1" class="pilcrow">¶</a></p>
+types at different endpoints, multiple SVCB / HTTPS RRs <span class="bcp14">SHOULD</span> be used.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The presentation value for "sla" <span class="bcp14">SHALL</span> be a comma-seperated list
 of one or more integers (1-octet) indicating the service level use. A service
 endpoint may serve more than one service level. A lower value indicates a more
-cost-effective, high-throughput endpoint while a higher value indicates a
+cost-effective, lower-performance endpoint while a higher value indicates a
 low-latency, high-performance endpoint.  A <code>sla=0</code> can be thought of as a
 endpoint supporting "background" tasks such as performing backups.  A <code>sla=1</code>
 can be thought of as a endpoint supporting "interactive" tasks such sending
@@ -1291,25 +1290,23 @@ denoted by a 1-octet numeric.<a href="#section-4-3" class="pilcrow">¶</a></p>
         <h3 id="name-client-behavior">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-client-behavior" class="section-name selfRef">Client Behavior</a>
         </h3>
-<p id="section-4.1-1">The "sla" parameter in the SVCB / HTTPS records indicates that
-the domain owner recommends the use a specific endpoint for a specific service
-level use type. On receiving the RRs with the "sla" parameter,
-clients <span class="bcp14">SHOULD</span> use it as a filter to decide which RRs to use when.
-Since this document only defines three service levels, a client <span class="bcp14">SHOULD</span> ignore
-any SVCB RRs with an "sla" value greater than 2. It is possible
-that certain RRs are never used by some clients.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">To use the RRs, the client first determines its service level, and then filters
-down to only RRs with "sla" values equal to or lesser than its own perceived
-service level.  A RR without a "sla" is considered equivalent to <code>sla=0</code>.  The
-client then performs a multi-level sort, first using the "sla" values and then
-SvcPriority values. If multiple RRs have the same SvcPriority value and "sla"
-the client <span class="bcp14">MAY</span> apply a random shuffle.  If no RRs match, SVCB resolution has
-failed, and the list of available endpoints is empty. Note, the client may end
-up using a RR with a "sla" lesser than its initial determined level, or a
-service endpoint with a lower SvcPriority. To prevent this behavior, service
-operators <span class="bcp14">SHOULD NOT</span> have gaps in supported "sla" values.  This behavior updates
-how a client treats multiple SVCB records <span>[<a href="#SVCB" class="cite xref">SVCB</a>]</span> with the same SvcPriority
-value.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The "sla" SvcParamKey in the SVCB / HTTPS records indicates that the domain
+owner recommends the use a specific endpoint for a specific service level use
+type. On receiving RRs with the "sla" SvcParamKey, clients <span class="bcp14">SHOULD</span> use it as a
+filter to decide which RRs to use when.  Since this document only defines three
+service levels, a client <span class="bcp14">SHOULD</span> ignore any SVCB RRs with an "sla" value greater
+than 2. It is possible that certain RRs are never used by some clients.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">To use the SVCB / HTTPS RRs, the client first determines its service level. The
+client then filters down to only SVCB / HTTPS RRs that match its own perceived
+service level. A SVCB / HTTPS RR is considered to match if any of the "sla"
+values associated match the client's service level.  A RR without a "sla" value
+is considered equivalent to <code>sla=0,1,2</code> and thus matches all client service
+levels.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">Once the client filters SVCB / HTTPS RRs to ones that offer the service level it
+desires, the client proceeds with processing the remaining SVCB / HTTPS RRs as
+normal.  If no RRs match, SVCB resolution has failed, and the list of available
+endpoints is empty. To prevent this behavior, service operators <span class="bcp14">SHOULD NOT</span> have
+gaps in supported "sla" values.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="example-use">
@@ -1323,24 +1320,27 @@ support to the client by populating a SVCB / HTTPS RR as so:<a href="#section-4.
         svc.example.com 7200 IN SVCB 1 background.svc.example.com ( alpn=h2, sla=0, mandatory=sla)
 </code><a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3"><code>
-        svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
+        svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1,2 )
 </code><a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">In the above example, a client that determines it wants a "real-time" service
-level will first filter for RRs with <code>sla</code> values lesser than 2. In this case,
-both RRs satisfy the constraint. The client then sorts it by the <code>sla</code> values.
-The client thus uses <code>interactive.svc.example.com</code> endpoint.  The service
-operator also use the <code>mandatory</code> flag for the background service, so that
-clients who do not support the SvcLvlAttr default to the interactive
-endpoint.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
-<p id="section-4.2-5">A service operator can also have the same endpoint offer multiple service levels
-with an additional SVCB record as so:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">In the above example, a client that determines it wants a "realtime" (sla=2)
+service level will first filter for RRs with an <code>sla</code> value of 2. In this case,
+only one RR satisfies the constraint and the client can use
+<code>interactive.svc.example.com</code> endpoint. The service operator can also use the
+<code>mandatory</code> flag for the background service, so that clients who do not support
+the "sla" SvcParamKey default to their endpoint of choice.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">A service operator can also have the same service level offered at multiple
+service endpoints with an additional SVCB record as so:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <p id="section-4.2-6"><code>
-        svc.example.com 7200 IN SVCB 1 realtime.svc.example.com ( alpn=h2, sla=1,2 )
+        svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
 </code><a href="#section-4.2-6" class="pilcrow">¶</a></p>
-<p id="section-4.2-7">With this additional record, a client that determines it wants a "real-time"
-service level will use this new endpoint. A client that determines it service
-level to be "interactive" (sla=1), can use either the
-<code>interactive.svc.example.com</code> or the <code>realtime.svc.example.com</code> endpoint.<a href="#section-4.2-7" class="pilcrow">¶</a></p>
+<p id="section-4.2-7"><code>
+        svc.example.com 7200 IN SVCB 1 realtime.svc.example.com ( alpn=h2, sla=1,2 )
+</code><a href="#section-4.2-7" class="pilcrow">¶</a></p>
+<p id="section-4.2-8">With this additional RR, a client that determines it wants a "interactive"
+(sla=1) service level will match two RRs. After filtering down to these two RRs,
+the client will the proceed to process the RRs as before. In this case, since
+both the RRs have the same SvcPriority level, the client will apply a random
+shuffle before using them <span>[<a href="#SVCB" class="cite xref">SVCB</a>]</span>.<a href="#section-4.2-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

@@ -5,7 +5,7 @@
 Domain Name System Operations                                 G. Akiwate
 Internet-Draft                                                  T. Pauly
 Intended status: Informational                                 Apple Inc
-Expires: 28 July 2025                                    24 January 2025
+Expires: 1 September 2025                               28 February 2025
 
 
                Service Binding Mapping for Service Levels
@@ -13,10 +13,10 @@ Expires: 28 July 2025                                    24 January 2025
 
 Abstract
 
-   This document defines a new parameter for use in Service Binding
+   This document defines a new SvcParamKey for use in Service Binding
    (SVCB) and HTTPS DNS resource records which enables authoritative DNS
    servers to indicate that a service supports specific service levels
-   or use types, such as "interactive", "background" or "real-time", at
+   or use types, such as "interactive", "background" or "realtime", at
    that endpoint.  Specifically, a service can use this new parameter to
    indicate which specific endpoints a client MAY use for the specific
    service levels indicated.  By providing this information, clients can
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 July 2025.
+   This Internet-Draft will expire on 1 September 2025.
 
 Copyright Notice
 
@@ -91,23 +91,23 @@ Table of Contents
 
    The SVCB and HTTPS resource records (RRs) provide clients with
    instructions to connect to a service while avoiding transient
-   connections to a suboptimal default server[SVCB].  However, there are
-   scenarios in which a client might need to interact differently with a
-   service based on their specific needs at the time.  Traditionally,
-   the solution to this problem has been to create two services --- one
-   for interactive tasks and another for background tasks.  However,
-   there are scenarios where a client based on its local context, knows
-   that it can improve resource utilization by choosing a "background"
-   service level for tasks that are typically considered "interactive".
-   The current solution of splitting "interactive" and "background"
-   services does not allow clients to utilize its local context to
-   improve service adaptability without having to delineate tasks as
-   "background", or "interactive" apriori.
+   connections to a suboptimal default server [SVCB].  However, there
+   are scenarios in which a client might need to interact differently
+   with a service based on their specific needs at the time.
+   Traditionally, the solution to this problem has been to create
+   separate services --- one for "interactive" tasks and another for
+   "background" tasks.  However, there are scenarios where a client
+   based on its local context, knows that it can improve resource
+   utilization by choosing a "background" service level for tasks that
+   are typically considered "interactive".  The current solution of
+   splitting services does not allow clients to utilize its local
+   context to improve service adaptability without having to delineate
+   tasks as "background", or "interactive" apriori.
 
    The document defines a new SvcParamKey "sla", short for Service Level
-   Attribute, to provide a standardized way for a client to discover
-   different service endpoints offering different service levels using
-   SVCB / HTTPS RRs.
+   Attribute, to provide a standardized way for a client to dynamically
+   discover different service endpoints offering different service
+   levels using SVCB / HTTPS RRs.
 
 2.  Conventions and Definitions
 
@@ -128,12 +128,12 @@ Table of Contents
    immediacy.  Moreover, where in the network enviornment these demands
    can be relaibly and efficiently met also differ.
 
-   The "sla" parameter enables authoritative DNS servers to signal these
-   distinctions, thereby allowing clients to route traffic
+   The "sla" SvcParamKey enables authoritative DNS servers to signal
+   these distinctions, thereby allowing clients to route traffic
    intelligently.  This capability is particularly useful in load-
    balancing scenarios, where providers can allocate interactive traffic
    to low-latency, high-performance servers while directing background
-   tasks to cost-effective, high-throughput infrastructure.
+   tasks to cost-effective, lower-performance infrastructure.
 
    Allowing clients explicit control over which service level to use
    benefits a range of stakeholders, including service operators, by
@@ -146,48 +146,47 @@ Table of Contents
    indicate that a service described in SVCB RR supports a specific
    service level use type.  A endpoint can support multiple service
    levels.  To support multiple service level types at different
-   endpoints, multiple SVCB / HTTPS RRs with the same SvcPriority SHOULD
-   be used.
+   endpoints, multiple SVCB / HTTPS RRs SHOULD be used.
 
    The presentation value for "sla" SHALL be a comma-seperated list of
    one or more integers (1-octet) indicating the service level use.  A
    service endpoint may serve more than one service level.  A lower
-   value indicates a more cost-effective, high-throughput endpoint while
-   a higher value indicates a low-latency, high-performance endpoint.  A
-   sla=0 can be thought of as a endpoint supporting "background" tasks
-   such as performing backups.  A sla=1 can be thought of as a endpoint
-   supporting "interactive" tasks such sending messages, while a sla=2
-   can be thought of as a endpoint supporting "real-time" tasks such as
-   invoking a voice assistant.  This documents defines three service
-   levels, and restricts the values of sla to 0, 1, or 2.  Future
-   documents may choose to extend this number.
+   value indicates a more cost-effective, lower-performance endpoint
+   while a higher value indicates a low-latency, high-performance
+   endpoint.  A sla=0 can be thought of as a endpoint supporting
+   "background" tasks such as performing backups.  A sla=1 can be
+   thought of as a endpoint supporting "interactive" tasks such sending
+   messages, while a sla=2 can be thought of as a endpoint supporting
+   "real-time" tasks such as invoking a voice assistant.  This documents
+   defines three service levels, and restricts the values of sla to 0,
+   1, or 2.  Future documents may choose to extend this number.
 
    The wire format for the "sla" parameter is a sequence of service
    levels each denoted by a 1-octet numeric.
 
 4.1.  Client Behavior
 
-   The "sla" parameter in the SVCB / HTTPS records indicates that the
+   The "sla" SvcParamKey in the SVCB / HTTPS records indicates that the
    domain owner recommends the use a specific endpoint for a specific
-   service level use type.  On receiving the RRs with the "sla"
-   parameter, clients SHOULD use it as a filter to decide which RRs to
-   use when.  Since this document only defines three service levels, a
-   client SHOULD ignore any SVCB RRs with an "sla" value greater than 2.
-   It is possible that certain RRs are never used by some clients.
+   service level use type.  On receiving RRs with the "sla" SvcParamKey,
+   clients SHOULD use it as a filter to decide which RRs to use when.
+   Since this document only defines three service levels, a client
+   SHOULD ignore any SVCB RRs with an "sla" value greater than 2.  It is
+   possible that certain RRs are never used by some clients.
 
-   To use the RRs, the client first determines its service level, and
-   then filters down to only RRs with "sla" values equal to or lesser
-   than its own perceived service level.  A RR without a "sla" is
-   considered equivalent to sla=0.  The client then performs a multi-
-   level sort, first using the "sla" values and then SvcPriority values.
-   If multiple RRs have the same SvcPriority value and "sla" the client
-   MAY apply a random shuffle.  If no RRs match, SVCB resolution has
-   failed, and the list of available endpoints is empty.  Note, the
-   client may end up using a RR with a "sla" lesser than its initial
-   determined level, or a service endpoint with a lower SvcPriority.  To
-   prevent this behavior, service operators SHOULD NOT have gaps in
-   supported "sla" values.  This behavior updates how a client treats
-   multiple SVCB records [SVCB] with the same SvcPriority value.
+   To use the SVCB / HTTPS RRs, the client first determines its service
+   level.  The client then filters down to only SVCB / HTTPS RRs that
+   match its own perceived service level.  A SVCB / HTTPS RR is
+   considered to match if any of the "sla" values associated match the
+   client's service level.  A RR without a "sla" value is considered
+   equivalent to sla=0,1,2 and thus matches all client service levels.
+
+   Once the client filters SVCB / HTTPS RRs to ones that offer the
+   service level it desires, the client proceeds with processing the
+   remaining SVCB / HTTPS RRs as normal.  If no RRs match, SVCB
+   resolution has failed, and the list of available endpoints is empty.
+   To prevent this behavior, service operators SHOULD NOT have gaps in
+   supported "sla" values.
 
 4.2.  Example Use
 
@@ -198,27 +197,31 @@ Table of Contents
    sla=0, mandatory=sla)
 
    svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2,
+   sla=1,2 )
+
+   In the above example, a client that determines it wants a "realtime"
+   (sla=2) service level will first filter for RRs with an sla value of
+   2.  In this case, only one RR satisfies the constraint and the client
+   can use interactive.svc.example.com endpoint.  The service operator
+   can also use the mandatory flag for the background service, so that
+   clients who do not support the "sla" SvcParamKey default to their
+   endpoint of choice.
+
+   A service operator can also have the same service level offered at
+   multiple service endpoints with an additional SVCB record as so:
+
+   svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2,
    sla=1 )
-
-   In the above example, a client that determines it wants a "real-time"
-   service level will first filter for RRs with sla values lesser than
-   2.  In this case, both RRs satisfy the constraint.  The client then
-   sorts it by the sla values.  The client thus uses
-   interactive.svc.example.com endpoint.  The service operator also use
-   the mandatory flag for the background service, so that clients who do
-   not support the SvcLvlAttr default to the interactive endpoint.
-
-   A service operator can also have the same endpoint offer multiple
-   service levels with an additional SVCB record as so:
 
    svc.example.com 7200 IN SVCB 1 realtime.svc.example.com ( alpn=h2,
    sla=1,2 )
 
-   With this additional record, a client that determines it wants a
-   "real-time" service level will use this new endpoint.  A client that
-   determines it service level to be "interactive" (sla=1), can use
-   either the interactive.svc.example.com or the
-   realtime.svc.example.com endpoint.
+   With this additional RR, a client that determines it wants a
+   "interactive" (sla=1) service level will match two RRs.  After
+   filtering down to these two RRs, the client will the proceed to
+   process the RRs as before.  In this case, since both the RRs have the
+   same SvcPriority level, the client will apply a random shuffle before
+   using them [SVCB].
 
 5.  Security Considerations
 
