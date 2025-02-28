@@ -192,8 +192,10 @@ Table of Contents
    A service that supports "interactive" and "background" endpoints can
    signal support to the client by populating SVCB / HTTPS RRs as so:
 
-svc.example.com 7200 IN SVCB 1 background.svc.example.com ( alpn=h2, sla=0, mandatory=sla)
-svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1,2 )
+   svc.example.com 7200 IN SVCB 1 background.svc.example.com (
+       alpn=h2, sla=0, mandatory=sla )
+   svc.example.com 7200 IN SVCB 1 interactive.svc.example.com (
+       alpn=h2, sla=1,2 )
 
    In the above example, a client that determines it wants a "realtime"
    (sla=2) service level will first filter for RRs with an sla value of
@@ -206,8 +208,10 @@ svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1,2 )
    A service operator can also have the same service level offered at
    multiple service endpoints, as seen in the following example:
 
-svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
-svc.example.com 7200 IN SVCB 2 . ( alpn=h2, sla=0,1,2 )
+   svc.example.com 7200 IN SVCB 1 interactive.svc.example.com (
+       alpn=h2, sla=1 )
+   svc.example.com 7200 IN SVCB 2 . (
+       alpn=h2, sla=0,1,2 )
 
    With this additional RR, a client that determines its application has
    an "interactive" (sla=1) service level will match both RRs.  After
