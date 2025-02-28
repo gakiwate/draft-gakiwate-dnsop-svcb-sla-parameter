@@ -158,8 +158,8 @@ service endpoints, as seen in the following example:
         svc.example.com 7200 IN SVCB 2 . ( alpn=h2, sla=0,1,2 )
 ```
 
-With this additional RR, a client that determines it wants a "interactive"
-(sla=1) service level will match two RRs. After filtering down to these two RRs,
+With this additional RR, a client that determines its application has an "interactive"
+(sla=1) service level will match both RRs. After allowing both of these RRs,
 the client will the proceed to process the RRs as before. In this case, since
 the RRs have different SvcPriority levels, the client will prefer
 "interactive.svc.example.com".
