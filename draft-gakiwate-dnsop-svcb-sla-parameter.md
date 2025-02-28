@@ -37,12 +37,10 @@ informative:
 
 This document defines a new SvcParamKey for use in Service Binding (SVCB) and
 HTTPS DNS resource records which enables authoritative DNS servers to indicate
-that a service supports specific service levels or use types, such as
-"interactive", "background" or "realtime", at that endpoint.  Specifically, a
-service can use this new parameter to indicate which specific endpoints a client
-MAY use for the specific service levels indicated. By providing this
+that a service should be used by clients having specific service levels
+or use types, such as "interactive", "background" or "realtime". By providing this
 information, clients can make informed decisions about which service endpoints
-to use based on their specific applications needs at that time.
+to use based on specific applications needs at that time of making connections.
 
 --- middle
 
@@ -50,20 +48,19 @@ to use based on their specific applications needs at that time.
 
 The SVCB and HTTPS resource records (RRs) provide clients with instructions to
 connect to a service while avoiding transient connections to a suboptimal
-default server {{!SVCB=RFC9460}}. However, there are scenarios in which a client
-might need to interact differently with a service based on their specific needs
-at the time.  Traditionally, the solution to this problem has been to create
-separate services --- one for "interactive" tasks and another for "background"
-tasks.  However, there are scenarios where a client based on its local context,
-knows that it can improve resource utilization by choosing a "background"
-service level for tasks that are typically considered "interactive". The current
-solution of splitting services does not allow clients to utilize its local
-context to improve service adaptability without having to delineate tasks as
-"background", or "interactive" apriori.
+default server {{!SVCB=RFC9460}}. However, there are scenarios in which a server
+deployment might want client applications to interact differently with the service
+based on the specific client needs at the time.  Traditionally, the solution to
+this problem has been to create separate services --- one for "interactive"
+tasks and another for "background" tasks.  However, there are scenarios where
+a service with a single hostname needs to be used by both "background" and
+"interactive" clients.
 
 The document defines a new SvcParamKey "sla", short for Service Level Attribute,
 to provide a standardized way for a client to dynamically discover different
 service endpoints offering different service levels using SVCB / HTTPS RRs.
+This parameters allows client applications to filter out which services apply
+to them at the time of using DNS answers to establish connections.
 
 # Conventions and Definitions
 
@@ -131,19 +128,18 @@ levels.
 Once the client filters SVCB / HTTPS RRs to ones that offer the service level it
 desires, the client proceeds with processing the remaining SVCB / HTTPS RRs as
 normal.  If no RRs match, SVCB resolution has failed, and the list of available
-endpoints is empty. To prevent this behavior, service operators SHOULD NOT have
-gaps in supported "sla" values.
+endpoints is empty. To prevent this behavior, service operators SHOULD ensure
+that the complete set of SVCB RRs contains all "sla" levels; this can be done
+either by having each level explicitly in some SVCB RR, or by having a
+SVCB RR that does not contain the "sla" parameter.
 
 ## Example Use
 
 A service that supports "interactive" and "background" endpoints can signal
-support to the client by populating a SVCB / HTTPS RR as so:
+support to the client by populating SVCB / HTTPS RRs as so:
 
 ```
         svc.example.com 7200 IN SVCB 1 background.svc.example.com ( alpn=h2, sla=0, mandatory=sla)
-```
-
-```
         svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1,2 )
 ```
 
@@ -155,34 +151,33 @@ only one RR satisfies the constraint and the client can use
 the "sla" SvcParamKey default to their endpoint of choice.
 
 A service operator can also have the same service level offered at multiple
-service endpoints with an additional SVCB record as so:
+service endpoints, as seen in the following example:
 
 ```
         svc.example.com 7200 IN SVCB 1 interactive.svc.example.com ( alpn=h2, sla=1 )
-```
-
-```
-        svc.example.com 7200 IN SVCB 1 realtime.svc.example.com ( alpn=h2, sla=1,2 )
+        svc.example.com 7200 IN SVCB 2 realtime.svc.example.com ( alpn=h2, sla=0,1,2 )
 ```
 
 With this additional RR, a client that determines it wants a "interactive"
 (sla=1) service level will match two RRs. After filtering down to these two RRs,
 the client will the proceed to process the RRs as before. In this case, since
-both the RRs have the same SvcPriority level, the client will apply a random
-shuffle before using them {{SVCB}}.
+the RRs have different SvcPriority levels, the client will prefer
+"interactive.svc.example.com".
 
 # Security Considerations
+
+TODO: Security considerations
 
 # IANA Considerations
 
 ## SVCB Service Parameter
 
-This document adds the following entry to the "Service Parameter Keys (SvcParamKeys)"
-registry.
+Once standardized, this document would ask to add the following entry to the
+"Service Parameter Keys (SvcParamKeys)" registry.
 
 | Number  | Name    | Meaning                      | Change Controller | Reference       |
 | ------- | ------- | ---------------------------- | ----------------- | --------------- |
-| TBD     | sla     | Service Level Attribute      |                   |                 |
+| TBD     | sla     | Service Level Attribute      |                   | (this document)  |
 
 --- back
 
