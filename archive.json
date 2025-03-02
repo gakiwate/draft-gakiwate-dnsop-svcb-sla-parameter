@@ -1,0 +1,170 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-03-02T01:21:52.570456+00:00",
+  "repo": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDONupMtM6M_kct",
+      "title": "Editorial changes",
+      "url": "https://github.com/gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter/pull/1",
+      "state": "MERGED",
+      "author": "tfpauly",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-28T22:24:31Z",
+      "updatedAt": "2025-02-28T23:38:04Z",
+      "baseRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "baseRefName": "main",
+      "baseRefOid": "7e5fdc265a22bf7b266520a7fddd84c2ce05af43",
+      "headRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "headRefName": "tfpauly-patch-1",
+      "headRefOid": "e0f83ef17b5995f142afda35586d83f2743638de",
+      "closedAt": "2025-02-28T23:37:58Z",
+      "mergedAt": "2025-02-28T23:37:58Z",
+      "mergedBy": "gakiwate",
+      "mergeCommit": {
+        "oid": "bc36a5e21d5633a06014f9392ae95718b86d0249"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONupMtM6eEZ3L",
+          "commit": {
+            "abbreviatedOid": "1953a2d"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T23:34:36Z",
+          "updatedAt": "2025-02-28T23:34:36Z",
+          "comments": [
+            {
+              "originalPosition": 84,
+              "body": "```suggestion\r\n        svc.example.com 7200 IN SVCB 2 . ( alpn=h2, sla=0,1,2 )\r\n```",
+              "createdAt": "2025-02-28T23:34:36Z",
+              "updatedAt": "2025-02-28T23:34:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONupMtM6eEaJo",
+          "commit": {
+            "abbreviatedOid": "965ed49"
+          },
+          "author": "gakiwate",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T23:36:21Z",
+          "updatedAt": "2025-02-28T23:36:21Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDONupMtM6eEaOd",
+          "commit": {
+            "abbreviatedOid": "965ed49"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T23:36:44Z",
+          "updatedAt": "2025-02-28T23:36:45Z",
+          "comments": [
+            {
+              "originalPosition": 87,
+              "body": "```suggestion\r\nWith this additional RR, a client that determines its application has an \"interactive\"\r\n```",
+              "createdAt": "2025-02-28T23:36:44Z",
+              "updatedAt": "2025-02-28T23:36:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONupMtM6eEaS6",
+          "commit": {
+            "abbreviatedOid": "965ed49"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T23:37:07Z",
+          "updatedAt": "2025-02-28T23:37:08Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "```suggestion\r\n(sla=1) service level will match both RRs. After allowing both of these RRs,\r\n```",
+              "createdAt": "2025-02-28T23:37:07Z",
+              "updatedAt": "2025-02-28T23:37:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONupMtM6eEaVd",
+          "commit": {
+            "abbreviatedOid": "e0f83ef"
+          },
+          "author": "gakiwate",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T23:37:24Z",
+          "updatedAt": "2025-02-28T23:37:24Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
