@@ -9,7 +9,7 @@ Expires: 27 December 2025                                   25 June 2025
 
 
               Service Binding Mapping for Background Tasks
-        draft-gakiwate-dnsop-svcb-bg-designated-parameter-latest
+         draft-gakiwate-dnsop-svcb-bg-priority-parameter-latest
 
 Abstract
 
@@ -25,11 +25,11 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://gakiwate.github.io/draft-gakiwate-dnsop-svcb-bg-designated-
-   parameter/draft-gakiwate-dnsop-svcb-bg-designated-parameter.html.
+   https://gakiwate.github.io/draft-gakiwate-dnsop-svcb-bg-priority-
+   parameter/draft-gakiwate-dnsop-svcb-bg-priority-parameter.html.
    Status information for this document may be found at
    https://datatracker.ietf.org/doc/draft-gakiwate-dnsop-svcb-bg-
-   designated-parameter/.
+   priority-parameter/.
 
    Discussion of this document takes place on the Domain Name System
    Operations mailing list (mailto:dnsop@ietf.org), which is archived at
@@ -37,7 +37,7 @@ About This Document
    https://www.ietf.org/mailman/listinfo/dnsop/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/gakiwate/draft-gakiwate-dnsop-svcb-bg-designated-
+   https://github.com/gakiwate/draft-gakiwate-dnsop-svcb-bg-priority-
    parameter.
 
 Status of This Memo
@@ -76,7 +76,7 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Motivation
-   4.  The "bg-designated" SvcParamKey
+   4.  The "bg-priority" SvcParamKey
      4.1.  Client Behavior
      4.2.  Example Use
      4.3.  Operational Considerations
@@ -97,26 +97,26 @@ Table of Contents
    consider a weather application.  When running in the background, the
    application may retrieve data infrequently and can thus tolerate
    higher latency.  In contrast, when an user is actively interacting
-   with the app, the same requests now require low-latency responses
-   from nearby servers.  Traditionally, such use cases are handled by
-   provisioning distinct endpoints --- one for "interactive" requests
-   and another for "background" requests.  This approach does not work
-   in scenarios where a service with a single hostname needs to be used
-   for both "background" and "interactive" requests.  Moreover, this
-   static partitioning imposes rigid service delineation and prevents
-   clients from adapting dynamically.  In practice, a client may, based
-   on local context, dynamically determine that a request typically
-   considered "interactive" can be fulfilled using a latency-tolerant
-   path, thereby improving resource utilization and reducing operational
-   cost.
+   with the application, the same requests now require low-latency
+   responses from nearby servers.  Traditionally, such use cases are
+   handled by provisioning distinct endpoints --- one for "interactive"
+   requests and another for "background" requests.  This approach does
+   not work in scenarios where a service with a single hostname needs to
+   be used for both "background" and "interactive" requests.  Moreover,
+   this static partitioning imposes rigid service delineation and
+   prevents clients from adapting dynamically.  In practice, a client
+   may, based on local context, dynamically determine that a request
+   typically considered "interactive" can be fulfilled using a latency-
+   tolerant path, thereby improving resource utilization and reducing
+   operational cost.
 
-   This document defines a new SvcParamKey, bg-designated (short for
-   "background designated"), to enable clients to dynamically discover
-   service endpoints suited for latency-insensitive traffic.  The
-   presence of bg-designated=1 on a service endpoint signals that it is
-   optimized for background requests and can be selected as needed by
-   clients.  This key allows clients to filter out which endpoints apply
-   to them at the time of using DNS answers to establish connections.
+   This document defines a new SvcParamKey, bg-priority (short for
+   "background priority"), to enable clients to dynamically discover
+   service endpoints suited for latency-tolerant requests.  The presence
+   of bg-priority=1 on a service endpoint signals that it is optimized
+   for background requests and can be selected as needed by clients.
+   This key allows clients to filter down to endpoints that apply to
+   them at the time of using DNS answers to establish connections.
 
 2.  Conventions and Definitions
 
@@ -137,7 +137,7 @@ Table of Contents
    immediacy.  Moreover, where in the network environment these demands
    can be relaibly and efficiently met also differ.
 
-   The bg-designated SvcParamKey enables authoritative DNS servers to
+   The bg-priority SvcParamKey enables authoritative DNS servers to
    signal these distinctions, thereby allowing clients to route traffic
    intelligently.  This capability is particularly valuable in load-
    balancing resource-constrained scenarios, where providers can
@@ -150,29 +150,28 @@ Table of Contents
    improving quality of service (QoS), optimizing resource utilization,
    and enhancing end-user experience.
 
-4.  The "bg-designated" SvcParamKey
+4.  The "bg-priority" SvcParamKey
 
-   The bg-designated SvcParamKey, short for "background designated," is
-   used to indicate that a service endpoint described in an SVCB or
-   HTTPS record is optimized for background, latency-tolerant traffic.
-   The presentation value for bg-designated SHALL be either 0 or 1.
+   The bg-priority SvcParamKey, short for "background priority," is used
+   to indicate that a service endpoint described in an SVCB or HTTPS
+   record is optimized for background, latency-tolerant traffic.  The
+   presentation value for bg-priority SHALL be either 0 or 1.
 
    A value of 1 indicates that the endpoint is designated for background
    requests, while a value of 0 indicates that the endpoint may be
-   optimized for interactive or real-time requests.  If the bg-
-   designated paramter is absent, then the client must assumes that the
-   endpoint is designated for both background and interactive requests.
-   The wire format for the bg-designated parameter is a single 1-octet
-   value, with only the values 0x00 and 0x01 currently defined.
+   optimized for interactive or real-time requests.  If the bg-priority
+   paramter is absent, then the client must assumes that the endpoint is
+   designated for both background and interactive requests.  The wire
+   format for the bg-priority parameter is a single 1-octet value, with
+   only the values 0x00 and 0x01 currently defined.
 
 4.1.  Client Behavior
 
-   The bg-designated SvcParamKey in SVCB and HTTPS records indicates
-   that the service operator recommends the use of a particular endpoint
-   for background, latency-tolerant requests.  Upon receiving RRs
-   containing the bg-designated key, clients SHOULD treat it as a signal
-   to guide endpoint selection based on their current operational
-   context.
+   The bg-priority SvcParamKey in SVCB and HTTPS records indicates that
+   the service operator recommends the use of a particular endpoint for
+   background, latency-tolerant requests.  Upon receiving RRs containing
+   the bg-priority key, clients should treat it as a signal to guide
+   endpoint selection based on their current operational context.
 
    To use SVCB or HTTPS RRs, a client first determines whether the
    current network request is suitable for background handling.  The
@@ -185,10 +184,10 @@ Table of Contents
 
    If the client determines background handling to be appropriate, the
    client filters the RRSet to include only those records with bg-
-   designated=1.  If not, the client filters the RRSet to include only
-   those records with bg-designated=0.  A record that does not include
-   the bg-designated key is considered to be suitable for all traffic
-   types and should always be included.
+   priority=1.  If not, the client filters the RRSet to include only
+   those records with bg-priority=0.  A record that does not include the
+   bg-priority key is considered to be suitable for all traffic types
+   and should always be included.
 
    Once the client filters the SVCB / HTTPS RRs based on this
    designation, it proceeds with the remaining records using standard
@@ -196,53 +195,53 @@ Table of Contents
    filtering, SVCB resolution is considered to have failed, and the
    client should fallback appropriately.  To avoid unintended resolution
    failures, service operators should ensure that at least one endpoint
-   exists for both bg-designated=0 and bg-designated=1.
+   exists for both bg-priority=0 and bg-priority=1.
 
 4.2.  Example Use
 
-   A service that supports endpoints optimized for background (i.e.,
-   latency-tolerant) requests can advertise support to clients using the
-   bg-designated SvcParamKey as illustrated below:
+   A service that supports endpoints optimized for background i.e.,
+   latency-tolerant requests can advertise support to clients using the
+   bg-priority SvcParamKey as illustrated below:
 
    svc.example.com 7200 IN HTTPS 1 . (
-           alpn=h2, bg-designated=0 )
+           alpn=h2, bg-priority=0 )
    svc.example.com 7200 IN HTTPS 2 background.svc.example.com (
-           alpn=h2, bg-designated=1, mandatory=bg-designated )
+           alpn=h2, bg-priority=1, mandatory=bg-priority )
 
    In this example, a client that determines a request is suitable for
    background handling filters the SVCB / HTTPS RRs to select only those
-   records with bg-designated=1.  In this case, only one RR satisfies
-   the constraint, and the client uses the background.svc.example.com
+   records with bg-priority=1.  In this case, only one RR satisfies the
+   constraint, and the client uses the background.svc.example.com
    endpoint despite its higher SvcPriority (i.e., lower preference)
    compared to the other advertised RR.  If a client does not support
-   the bg-designated key, the client will ignore it and continue using
-   the default endpoint (SvcPriority=1) as before.  The service operator
-   can use mandatory=bg-designated for the background designated RR to
-   ensure that a client lacking support will skip this RR entirely.
+   the bg-priority key, the client will ignore it and continue using the
+   default endpoint (SvcPriority=1) as before.  The service operator can
+   use mandatory=bg-priority for the background designated RR to ensure
+   that a client lacking support will skip this RR entirely.
 
 4.3.  Operational Considerations
 
-   If a service operator does not explicitly include bg-designated=0 in
+   If a service operator does not explicitly include bg-priority=0 in
    the default HTTPS RR (as shown in the example above), a client that
    filters for background-eligible endpoints will treat both RRs as
-   valid matches.  This is because a record without the bg-designated
-   key is considered suitable for all traffic types.  After filtering,
-   the client will proceed with standard SVCB selection logic and prefer
-   the record with the lowest SvcPriority.  In such cases, the client
-   will select the default endpoint, even if an endpoint optimized for
+   valid matches.  This is because a record without the bg-priority key
+   is considered suitable for all traffic types.  After filtering, the
+   client will proceed with standard SVCB selection logic and prefer the
+   record with the lowest SvcPriority.  In such cases, the client will
+   select the default endpoint, even if an endpoint optimized for
    background requests is available.
 
    To avoid unintended selection behavior, service operators should be
-   cautious when mixing RRs that include bg-designated key with those
-   that omit it.  Explicitly setting bg-designated=0 can help ensure
-   more predictable client behavior.
+   cautious when mixing RRs that include bg-priority key with those that
+   omit it.  Explicitly setting bg-priority can help ensure more
+   predictable client behavior.
 
    Additionally, partitioning traffic across different service tiers may
    interfere with connection pooling in some client implementations.
    This could lead to increased connection overhead or degraded
    performance in scenarios that rely heavily on connection reuse.
-   Service operators SHOULD evaluate the impact on connection management
-   when deploying bg-designated based routing.
+   Service operators should evaluate the impact on connection management
+   when deploying bg-priority based routing.
 
 5.  Security Considerations
 
@@ -255,15 +254,15 @@ Table of Contents
    Once standardized, this document would ask to add the following entry
    to the "Service Parameter Keys (SvcParamKeys)" registry.
 
-   +========+===============+================+============+===========+
-   | Number | Name          | Meaning        | Change     | Reference |
-   |        |               |                | Controller |           |
-   +========+===============+================+============+===========+
-   | TBD    | bg-designated | Endpoint       |            | (this     |
-   |        |               | designated for |            | document) |
-   |        |               | background     |            |           |
-   |        |               | traffic        |            |           |
-   +--------+---------------+----------------+------------+-----------+
+     +========+=============+==============+============+===========+
+     | Number | Name        | Meaning      | Change     | Reference |
+     |        |             |              | Controller |           |
+     +========+=============+==============+============+===========+
+     | TBD    | bg-priority | Endpoint is  |            | (this     |
+     |        |             | suitable for |            | document) |
+     |        |             | background   |            |           |
+     |        |             | traffic      |            |           |
+     +--------+-------------+--------------+------------+-----------+
 
                                  Table 1
 
