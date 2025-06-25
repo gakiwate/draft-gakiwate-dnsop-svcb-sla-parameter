@@ -5,7 +5,7 @@ This is the working area for the individual Internet-Draft, "Service Binding Map
 * [Editor's Copy](https://gakiwate.github.io/draft-gakiwate-dnsop-svcb-bg-priority-parameter/#go.draft-gakiwate-dnsop-svcb-bg-priority-parameter.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-gakiwate-dnsop-svcb-bg-priority-parameter)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gakiwate-dnsop-svcb-bg-priority-parameter)
-* [Compare Editor's Copy to Individual Draft](https://gakiwate.github.io/draft-gakiwate-dnsop-svcb-sla-parameter/#go.draft-gakiwate-dnsop-svcb-bg-priority-parameter.diff)
+* [Compare Editor's Copy to Individual Draft](https://gakiwate.github.io/draft-gakiwate-dnsop-svcb-bg-priority-parameter/#go.draft-gakiwate-dnsop-svcb-bg-priority-parameter.diff)
 
 
 ## Contributing
