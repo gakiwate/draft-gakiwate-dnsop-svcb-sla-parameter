@@ -1312,9 +1312,10 @@ considered to be suitable for all traffic types and should always be included.<a
 proceeds with the remaining records using standard selection logic <span>[<a href="#SVCB" class="cite xref">SVCB</a>]</span>.  If
 no suitable records remain after filtering, SVCB resolution is considered to
 have failed, and the client should fallback appropriately. To avoid unintended
-resolution failures, service operators should ensure that if any service in a set contains the <code>bg-priority</code> parameters,
-then at least one service exists for each <code>bg-priority=0</code> and <code>bg-priority=1</code>, or else at least one service exists that does not contain
-the <code>bg-priority</code> parameter to catch all traffic.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+resolution failures, service operators should ensure that if any service in a
+set contains the <code>bg-priority</code> key, then at least one service exists for each
+<code>bg-priority=0</code> and <code>bg-priority=1</code>, or else at least one service exists without
+the <code>bg-priority</code> key to catch all traffic.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="example-use">
