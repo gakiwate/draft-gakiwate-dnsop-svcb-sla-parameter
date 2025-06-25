@@ -137,9 +137,10 @@ Once the client filters the SVCB / HTTPS RRs based on this designation, it
 proceeds with the remaining records using standard selection logic {{SVCB}}.  If
 no suitable records remain after filtering, SVCB resolution is considered to
 have failed, and the client should fallback appropriately. To avoid unintended
-resolution failures, service operators should ensure that if any service in a set contains the `bg-priority` parameters,
-then at least one service exists for each `bg-priority=0` and `bg-priority=1`, or else at least one service exists that does not contain
-the `bg-priority` parameter to catch all traffic.
+resolution failures, service operators should ensure that if any service in a
+set contains the `bg-priority` key, then at least one service exists for each
+`bg-priority=0` and `bg-priority=1`, or else at least one service exists without
+the `bg-priority` key to catch all traffic.
 
 ## Example Use
 
