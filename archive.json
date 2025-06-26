@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-24T01:38:16.906762+00:00",
+  "timestamp": "2025-06-26T01:37:43.597497+00:00",
   "repo": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
   "labels": [
     {
@@ -163,6 +163,55 @@
           "createdAt": "2025-02-28T23:37:24Z",
           "updatedAt": "2025-02-28T23:37:24Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDONupMtM6b9CPJ",
+      "title": "Address Ben's feedback on dnsop mailing list",
+      "url": "https://github.com/gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter/pull/2",
+      "state": "MERGED",
+      "author": "gakiwate",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Address Ben's feedback on dnsop mailing list",
+      "createdAt": "2025-06-25T00:00:45Z",
+      "updatedAt": "2025-06-25T17:01:18Z",
+      "baseRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "baseRefName": "main",
+      "baseRefOid": "b1d28cddc49b8a45e9634b1a36219e9625a30d80",
+      "headRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "headRefName": "ben-feedback",
+      "headRefOid": "8b0f21d1b96a533e350c46005bd0e72027729427",
+      "closedAt": "2025-06-25T17:01:10Z",
+      "mergedAt": "2025-06-25T17:01:10Z",
+      "mergedBy": "gakiwate",
+      "mergeCommit": {
+        "oid": "d6941f79fc0b815edc58fc61631352ff3bb162c9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONupMtM6wW4mx",
+          "commit": {
+            "abbreviatedOid": "13b2882"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Approved with one nit",
+          "createdAt": "2025-06-25T16:01:31Z",
+          "updatedAt": "2025-06-25T16:02:45Z",
+          "comments": [
+            {
+              "originalPosition": 141,
+              "body": "```suggestion\r\nresolution failures, service operators should ensure that if any service in a set contains the `bg-priority` parameters,\r\nthen at least one service exists for each `bg-priority=0` and `bg-priority=1`, or else at least one service exists that does not contain\r\nthe `bg-priority` parameter to catch all traffic.\r\n```",
+              "createdAt": "2025-06-25T16:01:31Z",
+              "updatedAt": "2025-06-25T16:02:45Z"
+            }
+          ]
         }
       ]
     }
