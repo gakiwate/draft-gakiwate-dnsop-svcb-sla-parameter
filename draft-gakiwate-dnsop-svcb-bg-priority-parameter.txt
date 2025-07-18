@@ -5,7 +5,7 @@
 Domain Name System Operations                                 G. Akiwate
 Internet-Draft                                                  T. Pauly
 Intended status: Informational                                 Apple Inc
-Expires: 27 December 2025                                   25 June 2025
+Expires: 19 January 2026                                    18 July 2025
 
 
             Service Binding Mapping for Background Requests
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 December 2025.
+   This Internet-Draft will expire on 19 January 2026.
 
 Copyright Notice
 
@@ -254,7 +254,7 @@ Table of Contents
 6.1.  SVCB Service Parameter
 
    Once standardized, this document would ask to add the following entry
-   to the "Service Parameter Keys (SvcParamKeys)" registry.
+   to the "DNS SVCB Service Parameter Keys (SvcParamKeys)" registry.
 
      +========+=============+==============+============+===========+
      | Number | Name        | Meaning      | Change     | Reference |
