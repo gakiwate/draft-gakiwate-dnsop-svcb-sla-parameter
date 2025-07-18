@@ -196,7 +196,7 @@ TODO: Security considerations
 ## SVCB Service Parameter
 
 Once standardized, this document would ask to add the following entry to the
-"Service Parameter Keys (SvcParamKeys)" registry.
+"DNS SVCB Service Parameter Keys (SvcParamKeys)" registry.
 
 | Number  |      Name         |                   Meaning                      | Change Controller | Reference       |
 | ------- | ----------------- | ---------------------------------------------- | ----------------- | --------------- |
