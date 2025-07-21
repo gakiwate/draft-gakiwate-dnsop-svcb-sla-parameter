@@ -1,6 +1,6 @@
 ---
 title: "Service Binding Mapping for Background Requests"
-category: info
+category: std
 
 docname: draft-gakiwate-dnsop-svcb-bg-priority-parameter-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
