@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-20T01:51:37.293763+00:00",
+  "timestamp": "2025-07-22T01:44:04.334275+00:00",
   "repo": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
   "labels": [
     {
@@ -214,6 +214,34 @@
           ]
         }
       ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDONupMtM6f0a_D",
+      "title": "Move to std, not info",
+      "url": "https://github.com/gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter/pull/3",
+      "state": "MERGED",
+      "author": "tfpauly",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-21T10:02:44Z",
+      "updatedAt": "2025-07-21T10:10:44Z",
+      "baseRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "baseRefName": "main",
+      "baseRefOid": "a48e05c9202c96f91fc52da36cd99bf36beb4d22",
+      "headRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "headRefName": "tfpauly-patch-1",
+      "headRefOid": "922b1062c56d201182650bb0de0538f57d58f9bd",
+      "closedAt": "2025-07-21T10:10:44Z",
+      "mergedAt": "2025-07-21T10:10:44Z",
+      "mergedBy": "gakiwate",
+      "mergeCommit": {
+        "oid": "34434d96cd04ac32d1b4221ff66c0231190f18a7"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
