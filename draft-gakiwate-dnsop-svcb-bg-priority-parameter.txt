@@ -5,7 +5,7 @@
 Domain Name System Operations                                 G. Akiwate
 Internet-Draft                                                  T. Pauly
 Intended status: Standards Track                               Apple Inc
-Expires: 22 January 2026                                    21 July 2025
+Expires: 26 January 2026                                    25 July 2025
 
 
             Service Binding Mapping for Background Requests
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 January 2026.
+   This Internet-Draft will expire on 26 January 2026.
 
 Copyright Notice
 
@@ -160,8 +160,8 @@ Table of Contents
    A value of 1 indicates that the endpoint is designated for background
    requests, while a value of 0 indicates that the endpoint may be
    optimized for interactive or real-time requests.  If the bg-priority
-   paramter is absent, then the client must assumes that the endpoint is
-   designated for both background and interactive requests.  The wire
+   parameter is absent, then the client must assumes that the endpoint
+   is designated for both background and interactive requests.  The wire
    format for the bg-priority parameter is a single 1-octet value, with
    only the values 0x00 and 0x01 currently defined.
 
