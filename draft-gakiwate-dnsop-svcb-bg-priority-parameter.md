@@ -106,7 +106,7 @@ for bg-priority SHALL be either 0 or 1.
 
 A value of 1 indicates that the endpoint is designated for background requests,
 while a value of 0 indicates that the endpoint may be optimized for interactive
-or real-time requests. If the `bg-priority` paramter is absent, then the client
+or real-time requests. If the `bg-priority` parameter is absent, then the client
 must assumes that the endpoint is designated for both background and interactive
 requests. The wire format for the `bg-priority` parameter is a single 1-octet
 value, with only the values `0x00` and `0x01` currently defined.
