@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-24T01:44:12.530100+00:00",
+  "timestamp": "2025-07-27T01:52:15.018785+00:00",
   "repo": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
   "labels": [
     {
@@ -242,6 +242,48 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDONupMtM6gmQ1O",
+      "title": "nit: typo in parameter",
+      "url": "https://github.com/gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter/pull/4",
+      "state": "MERGED",
+      "author": "yannk",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-25T09:22:02Z",
+      "updatedAt": "2025-07-25T11:51:54Z",
+      "baseRepository": "gakiwate/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "baseRefName": "main",
+      "baseRefOid": "34434d96cd04ac32d1b4221ff66c0231190f18a7",
+      "headRepository": "yannk/draft-gakiwate-dnsop-svcb-sla-parameter",
+      "headRefName": "patch-1",
+      "headRefOid": "2a7b191a98457a9b466d2e0c54b121f4bd1dec2b",
+      "closedAt": "2025-07-25T11:51:54Z",
+      "mergedAt": "2025-07-25T11:51:54Z",
+      "mergedBy": "tfpauly",
+      "mergeCommit": {
+        "oid": "5a0f997c9becf1556b5125bc7b6164cf60a9f6c1"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONupMtM62GOSl",
+          "commit": {
+            "abbreviatedOid": "2a7b191"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks!",
+          "createdAt": "2025-07-25T11:37:24Z",
+          "updatedAt": "2025-07-25T11:37:24Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
